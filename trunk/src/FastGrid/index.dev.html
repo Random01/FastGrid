@@ -9,15 +9,12 @@
         <script type="text/javascript" src="scripts/fastGridColumn.js"></script>
         <script type="text/javascript" src="scripts/fastGridHeader.js"></script>
         <script type="text/javascript" src="scripts/fastGridTheme.js"></script>
+        <script type="text/javascript" src="scripts/fastGridContent.js"></script>
 
         <script type="text/javascript">
-            $(function() {
-                var fastGrid = new fg.fastGrid({
-                    id: 'fastGridCanvas',
-                    theme: new fg.fastGridTheme({
-                        rowHeight: 20
-                    }),
-                    columns: [
+            $(function () {
+
+                var columns = [
                         new fg.fastGridColumn({
                             id: 'Identifier',
                             text: 'Identifier',
@@ -28,8 +25,9 @@
                             text: 'Company Name',
                             width: 200
                         })
-                    ],
-                    rows: [
+                ];
+
+                var rows = [
                     {
                         'Identifier': 'MSFT.O',
                         'CompanyName': 'Microsoft'
@@ -37,15 +35,38 @@
                     {
                         'Identifier': 'GOOG.O',
                         'CompanyName': 'Google'
-                    }]
+                    }];
+
+                var fastGrid = new fg.fastGrid({
+                    id: 'fastGridCanvas',
+                    theme: new fg.fastGridTheme({
+                        rowHeight: 20
+                    }),
+                    columns: columns,
+                    rows: rows
                 });
 
                 fastGrid.render();
+
+                $('#btnScrollDown').on('click', function () {
+                    fastGrid.scrollDown();
+                });
+
+                $('#btnScrollUp').on('click', function () {
+                    fastGrid.scrollUp();
+                });
             });
         </script>
     </head>
     <body>
         <canvas id="fastGridCanvas"
-                width="640" height="100"></canvas>
+                width="640"
+                height="300"></canvas>
+        <div>
+            <button id="btnScrollDown">Down</button>
+            <button id="btnScrollUp">Up</button>
+            <button id="btnScrollLeft">Left</button>
+            <button id="btnScrollRight">Right</button>
+        </div>
     </body>
 </html>

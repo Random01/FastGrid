@@ -28,6 +28,9 @@ fg.fastGrid.prototype.columns = undefined;
 
 fg.fastGrid.prototype.rows = undefined;
 
+fg.fastGrid.prototype.theme = undefined;
+
 fg.fastGrid.prototype.render = function() {
-    this.header.render(this.canvasContext_, this.columns);
+    this.header_.render(this.columns);
+    this.content_.render(this.columns, this.rows);
 };

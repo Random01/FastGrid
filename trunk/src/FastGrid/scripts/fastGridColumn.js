@@ -2,6 +2,7 @@
     if (options) {
         this.text = options.text;
         this.width = options.width;
+        this.id = options.id;
     }
 };
 

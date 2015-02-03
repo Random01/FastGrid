@@ -10,7 +10,7 @@ fg.fastGridContent = function (canvasContext, theme) {
 /**
 *
 */
-fg.fastGridContent.prototype.render = function(columns, rows) {
+fg.fastGridContent.prototype.render = function (columns, rows) {
     var rowIndex,
         rowsCount,
         columnIndex,
@@ -18,14 +18,16 @@ fg.fastGridContent.prototype.render = function(columns, rows) {
         row,
         column,
         x,
-        y = this.theme_.rowHeight;
+        y = this.theme_.rowHeight * 2,
+        verticalBounds = this.getVerticalBounds_(),
+        horizontalBounds = this.getHorizontalBounds_();
 
-    for (rowIndex = 0, rowsCount = rows.length; rowIndex < rowsCount; rowIndex++) {
+    for (rowIndex = verticalBounds.startRowIndex, rowsCount = verticalBounds.endRowIndex; rowIndex < rowsCount; rowIndex++) {
         x = 0;
         row = rows[rowIndex];
         for (columnIndex = 0, columnsCount = columns.length; columnIndex < columnsCount; columnIndex++) {
             column = columns[columnIndex];
-            this.drawCell_(row[column.id]);
+            this.drawCell_(row[column.id], x, y);
 
             x += column.width;
         }
@@ -34,6 +36,21 @@ fg.fastGridContent.prototype.render = function(columns, rows) {
 
 }
 
-fg.fastGridContent.prototype.drawCell_ = function(value) {
+fg.fastGridContent.prototype.drawCell_ = function (value, x, y) {
+    this.canvasContext_.font = '11px Arial';
+    this.canvasContext_.fillText(value, x, y);
+};
+
+/**
+*
+*/
+fg.fastGridContent.prototype.getVerticalBounds_ = function () {
+    return {
+        startRowIndex: this.vertilaScrollPosition,
+        endRowIndex: this.vertilaScrollPosition + 10
+    };
+};
+
+fg.fastGridContent.prototype.getHorizontalBounds_ = function () {
 
 };
