@@ -1,9 +1,20 @@
-﻿fg = fg || {};
+﻿fg = {};
 
-fg.fastGrid = function(options) {
-    this.canvas = document.getElementById(options.id);
-    this.columns = options.columns;
-    this.rows = options.rows;
+fg.fastGrid = function (options) {
+    if (options) {
+        this.columns = options.columns;
+        this.rows = options.rows;
+        this.theme = options.theme;
+
+        this.canvas_ = document.getElementById(options.id);
+
+        if (!this.canvasContext_) {
+            this.canvasContext_ = this.canvas_.getContext('2d');
+        }
+
+        this.header_ = new fg.fastGridHeader(this.canvasContext_, this.theme);
+        this.content_ = new fg.fastGridContent(this.canvasContext_, this.theme);
+    }
 };
 
 fg.fastGrid.prototype.id = undefined;
@@ -11,21 +22,12 @@ fg.fastGrid.prototype.id = undefined;
 /**
 * Jquery object
 */
-fg.fastGrid.prototype.canvas = undefined;
+fg.fastGrid.prototype.canvas_ = undefined;
 
 fg.fastGrid.prototype.columns = undefined;
 
 fg.fastGrid.prototype.rows = undefined;
 
 fg.fastGrid.prototype.render = function() {
-    if (!this.canvasContext_) {
-        this.canvasContext_ = this.canvas.getContext('2d');
-    }
-
-    for (var columnIndex = 0, columnsLenght = this.columns; columnIndex < columnsLenght; columnIndex++) {
-        
-    }
-
-    this.canvasContext_.fillStyle = '#FF0000';
-    this.canvasContext_.fillRect(0, 0, 150, 75);
+    this.header.render(this.canvasContext_, this.columns);
 };

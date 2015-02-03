@@ -4,13 +4,40 @@
         <title>Fast Grid</title>
 
         <script type="text/javascript" src="vendor/jquery-2.1.3.js"></script>
+
         <script type="text/javascript" src="scripts/fastGrid.js"></script>
+        <script type="text/javascript" src="scripts/fastGridColumn.js"></script>
+        <script type="text/javascript" src="scripts/fastGridHeader.js"></script>
+        <script type="text/javascript" src="scripts/fastGridTheme.js"></script>
+
         <script type="text/javascript">
             $(function() {
                 var fastGrid = new fg.fastGrid({
                     id: 'fastGridCanvas',
-                    columns: [],
-                    rows: []
+                    theme: new fg.fastGridTheme({
+                        rowHeight: 20
+                    }),
+                    columns: [
+                        new fg.fastGridColumn({
+                            id: 'Identifier',
+                            text: 'Identifier',
+                            width: 100
+                        }),
+                        new fg.fastGridColumn({
+                            id: 'CompanyName',
+                            text: 'Company Name',
+                            width: 200
+                        })
+                    ],
+                    rows: [
+                    {
+                        'Identifier': 'MSFT.O',
+                        'CompanyName': 'Microsoft'
+                    },
+                    {
+                        'Identifier': 'GOOG.O',
+                        'CompanyName': 'Google'
+                    }]
                 });
 
                 fastGrid.render();
@@ -19,6 +46,6 @@
     </head>
     <body>
         <canvas id="fastGridCanvas"
-                style="width: 640px;height: 480px"></canvas>
+                width="640" height="100"></canvas>
     </body>
 </html>

@@ -60,6 +60,9 @@
     <Content Include="index.dev.html" />
     <Content Include="scripts\fastGrid.js" />
     <Content Include="scripts\fastGridColumn.js" />
+    <Content Include="scripts\fastGridContent.js" />
+    <Content Include="scripts\fastGridHeader.js" />
+    <Content Include="scripts\fastGridTheme.js" />
     <Content Include="vendor\jquery-2.1.3.js" />
     <Content Include="Web.config" />
   </ItemGroup>
