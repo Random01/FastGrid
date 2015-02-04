@@ -66,6 +66,7 @@
     <Content Include="scripts\fastGridScrollController.js" />
     <Content Include="scripts\fastGridTheme.js" />
     <Content Include="vendor\jquery-2.1.3.js" />
+    <Content Include="vendor\lodash-3.1.0.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

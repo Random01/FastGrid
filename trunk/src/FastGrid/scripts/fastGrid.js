@@ -55,7 +55,8 @@ fg.fastGrid.prototype.scrollChangedCallback_ = function() {
 /**
 *
 */
-fg.fastGrid.prototype.render = function() {
+fg.fastGrid.prototype.render = function () {
+    this.canvasContext_.clearRect(0, 0, this.canvas_.width, this.canvas_.height);
     this.header_.render(this.columns);
     this.content_.render(this.columns, this.rows);
 };

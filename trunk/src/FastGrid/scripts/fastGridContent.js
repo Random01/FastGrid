@@ -21,8 +21,8 @@ fg.gridContentController.prototype.render = function (columns, rows) {
         column,
         x,
         y = this.theme_.rowHeight * 2,
-        verticalBounds = this.getVerticalBounds_(rows),
-        horizontalBounds = this.getHorizontalBounds_(columns);
+        verticalBounds = this.scrollController_.getVerticalBounds(rows),
+        horizontalBounds = this.scrollController_.getHorizontalBounds(columns);
 
     for (rowIndex = verticalBounds.startRowIndex, rowsCount = verticalBounds.endRowIndex; rowIndex < rowsCount; rowIndex++) {
         x = 0;
@@ -43,19 +43,3 @@ fg.gridContentController.prototype.drawCell_ = function (value, x, y) {
     this.canvasContext_.fillText(value, x, y);
 };
 
-/**
-*
-*/
-fg.gridContentController.prototype.getVerticalBounds_ = function (rows) {
-    return {
-        startRowIndex: 0,
-        endRowIndex: rows.length
-    };
-};
-
-fg.gridContentController.prototype.getHorizontalBounds_ = function (columns) {
-    return{
-        startColumnIndex: 0,
-        endColumnIndex: columns.length
-    };
-};

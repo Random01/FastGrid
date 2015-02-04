@@ -32,22 +32,41 @@ fg.scrollController.prototype.scrollDown = function () {
         this.verticalPosition = this.maxVerticalPosition;
     }
 
-    if (this.scrollChanged) {
-        this.scrollChanged();
-    }
+    (this.scrollChanged || _.noop)();
 };
 
 /**
 *
 */
-fg.scrollController.prototype.scrollUp = function () {
+fg.scrollController.prototype.scrollUp = function() {
     this.verticalPosition -= 1;
 
     if (this.verticalPosition < 0) {
         this.verticalPosition = 0;
     }
 
-    if (this.scrollChanged) {
-        this.scrollChanged();
-    }
-}
+    (this.scrollChanged || _.noop)();
+};
+
+fg.scrollController.prototype.getWidth = function(columns) {
+    return _.reduce(columns, function(totalWidth, column) {
+        return totalWidth + column.width;
+    });
+};
+
+/**
+*
+*/
+fg.scrollController.prototype.getVerticalBounds = function (rows) {
+    return {
+        startRowIndex: this.verticalPosition,
+        endRowIndex: this.verticalPosition + 40
+    };
+};
+
+fg.scrollController.prototype.getHorizontalBounds = function (columns) {
+    return {
+        startColumnIndex: this.horizontalPosition,
+        endColumnIndex: this.horizontalPosition + 5
+    };
+};
