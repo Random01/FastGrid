@@ -1,12 +1,15 @@
-﻿fg.fastGridHeader = function (canvasContext, theme) {
-    this.canvasContext_ = canvasContext;
-    this.theme_ = theme;
+﻿goog.provide('fg.gridHeaderController');
+
+fg.gridHeaderController = function (options) {
+    this.canvasContext_ = options.canvasContext;
+    this.theme_ = options.theme;
+    this.scrollController_ = options.scrollController;
 };
 
 /**
-* @param {Array.<fg.fastGrid.Column>} columns
+* @param {Array.<fg.Column>} columns
 */
-fg.fastGridHeader.prototype.render = function (columns) {
+fg.gridHeaderController.prototype.render = function (columns) {
     var columnIndex,
         columnsCount,
         column,

@@ -1,4 +1,8 @@
-﻿fg = {};
+﻿goog.provide('fg.fastGrid');
+
+goog.require('fg.gridHeaderController');
+goog.require('fg.gridContentController');
+
 
 fg.fastGrid = function (options) {
     if (options) {
@@ -12,8 +16,22 @@ fg.fastGrid = function (options) {
             this.canvasContext_ = this.canvas_.getContext('2d');
         }
 
-        this.header_ = new fg.fastGridHeader(this.canvasContext_, this.theme);
-        this.content_ = new fg.fastGridContent(this.canvasContext_, this.theme);
+        this.scrollController_ = new fg.scrollController();
+        this.scrollController_.adjust(this.columns, this.rows);
+        this.scrollController_.scrollChanged = this.scrollChangedCallback_.bind(this);
+
+        this.header_ = new fg.gridHeaderController({
+            canvasContext: this.canvasContext_,
+            theme: this.theme,
+            scrollController: this.scrollController_
+        });
+
+        this.content_ = new fg.gridContentController({
+            canvasContext: this.canvasContext_,
+            theme: this.theme,
+            scrollController: this.scrollController_
+        });
+
     }
 };
 
@@ -30,7 +48,30 @@ fg.fastGrid.prototype.rows = undefined;
 
 fg.fastGrid.prototype.theme = undefined;
 
+fg.fastGrid.prototype.scrollChangedCallback_ = function() {
+    this.render();
+};
+
+/**
+*
+*/
 fg.fastGrid.prototype.render = function() {
     this.header_.render(this.columns);
     this.content_.render(this.columns, this.rows);
+};
+
+fg.fastGrid.prototype.scrollUp = function () {
+    this.scrollController_.scrollUp();
+};
+
+fg.fastGrid.prototype.scrollDown = function () {
+    this.scrollController_.scrollDown();
+};
+
+fg.fastGrid.prototype.scrollRight = function () {
+    this.scrollController_.scrollRight();
+};
+
+fg.fastGrid.prototype.scrollLeft = function () {
+    this.scrollController_.scrollLeft();
 };

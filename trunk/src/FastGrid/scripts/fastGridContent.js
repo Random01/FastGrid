@@ -1,16 +1,18 @@
-﻿
+﻿goog.provide('fg.gridContentController');
+
 /**
 *
 */
-fg.fastGridContent = function (canvasContext, theme) {
-    this.canvasContext_ = canvasContext;
-    this.theme_ = theme;
+fg.gridContentController = function (options) {
+    this.canvasContext_ = options.canvasContext;
+    this.theme_ = options.theme;
+    this.scrollController_ = options.scrollController;
 };
 
 /**
 *
 */
-fg.fastGridContent.prototype.render = function (columns, rows) {
+fg.gridContentController.prototype.render = function (columns, rows) {
     var rowIndex,
         rowsCount,
         columnIndex,
@@ -19,13 +21,13 @@ fg.fastGridContent.prototype.render = function (columns, rows) {
         column,
         x,
         y = this.theme_.rowHeight * 2,
-        verticalBounds = this.getVerticalBounds_(),
-        horizontalBounds = this.getHorizontalBounds_();
+        verticalBounds = this.getVerticalBounds_(rows),
+        horizontalBounds = this.getHorizontalBounds_(columns);
 
     for (rowIndex = verticalBounds.startRowIndex, rowsCount = verticalBounds.endRowIndex; rowIndex < rowsCount; rowIndex++) {
         x = 0;
         row = rows[rowIndex];
-        for (columnIndex = 0, columnsCount = columns.length; columnIndex < columnsCount; columnIndex++) {
+        for (columnIndex = horizontalBounds.startColumnIndex, columnsCount = horizontalBounds.endColumnIndex; columnIndex < columnsCount; columnIndex++) {
             column = columns[columnIndex];
             this.drawCell_(row[column.id], x, y);
 
@@ -36,7 +38,7 @@ fg.fastGridContent.prototype.render = function (columns, rows) {
 
 }
 
-fg.fastGridContent.prototype.drawCell_ = function (value, x, y) {
+fg.gridContentController.prototype.drawCell_ = function (value, x, y) {
     this.canvasContext_.font = '11px Arial';
     this.canvasContext_.fillText(value, x, y);
 };
@@ -44,13 +46,16 @@ fg.fastGridContent.prototype.drawCell_ = function (value, x, y) {
 /**
 *
 */
-fg.fastGridContent.prototype.getVerticalBounds_ = function () {
+fg.gridContentController.prototype.getVerticalBounds_ = function (rows) {
     return {
-        startRowIndex: this.vertilaScrollPosition,
-        endRowIndex: this.vertilaScrollPosition + 10
+        startRowIndex: 0,
+        endRowIndex: rows.length
     };
 };
 
-fg.fastGridContent.prototype.getHorizontalBounds_ = function () {
-
+fg.gridContentController.prototype.getHorizontalBounds_ = function (columns) {
+    return{
+        startColumnIndex: 0,
+        endColumnIndex: columns.length
+    };
 };
