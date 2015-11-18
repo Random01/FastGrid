@@ -1,0 +1,4 @@
+/trunk/src/*.suo
+/trunk/src/FastGrid/Properties
+/trunk/src/FastGrid/bin
+/trunk/src/FastGrid/obj/Debug
